@@ -7,8 +7,8 @@ def main():
     legacy_vlans = pd.read_excel(open('spreadsheet/ASB-LEGACY-VLAN_Workbook.xlsx',
      'rb'),sheet_name='Sheet1')
      # edit as required
-    session = apic_logon(apic_url="https://*", user="admin",
-        password="*")
+    session = apic_logon(apic_url="https://10.37.1.11", user="admin",
+        password="dr1ft3r*")
 
     tenant_lst = []
     app_profile_lst = []
