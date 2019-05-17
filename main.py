@@ -6,9 +6,9 @@ def main():
     logfile = open("Tenant-Configuration.log", "w+")
     legacy_vlans = pd.read_excel(open('spreadsheet/ASB-LEGACY-VLAN_Workbook.xlsx',
      'rb'),sheet_name='Sheet1')
-
-    session = apic_logon(apic_url="https://10.37.1.11", user="admin",
-        password="dr1ft3r*")
+     # edit as required
+    session = apic_logon(apic_url="https://*", user="admin",
+        password="*")
 
     tenant_lst = []
     app_profile_lst = []
@@ -21,6 +21,7 @@ def main():
                 description=row["PROPOSED_DESCRIPTION"])
             tenant_lst.append(row["PROPOSED_TENANT"])
             logfile.write(tenant)
+            logfile.write("\n\n")
             print(tenant)
         if row["VRF"] not in vrf_lst:
             vrf = create_vrf(session, tenant_name=row["PROPOSED_TENANT"],
@@ -28,6 +29,7 @@ def main():
                 vrf_name=row['PROPOSED_VRF'])
             vrf_lst.append(row["VRF"])
             logfile.write(vrf)
+            logfile.write("\n\n")
             print(vrf)
         if row["PROPOSED_APP_PROFILE"] not in app_profile_lst:
             app_prof = create_apn(session, tenant_name=row["PROPOSED_TENANT"],
@@ -35,6 +37,7 @@ def main():
                 ap_name=row['PROPOSED_APP_PROFILE'])
             app_profile_lst.append(row["PROPOSED_APP_PROFILE"])
             logfile.write(app_prof)
+            logfile.write("\n\n")
             print(app_prof)
         if row["VLAN_ID"] not in epg_lst:
             epg = create_epg(session,
@@ -55,7 +58,9 @@ def main():
                 vrf_name=row['PROPOSED_VRF'],)
             epg_lst.append(row["VLAN_ID"])
             logfile.write(epg)
+            logfile.write("\n\n")
             logfile.write(bridge_domain)
+            logfile.write("\n\n")
             print(epg)
     logfile.close()
 
